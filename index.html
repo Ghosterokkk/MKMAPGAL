@@ -154,14 +154,6 @@
             background-color: #e09a00;
         }
         
-        .btn-info {
-            background-color: #1a73e8;
-        }
-        
-        .btn-info:hover {
-            background-color: #1669d6;
-        }
-        
         .test-section {
             display: none;
         }
@@ -500,11 +492,6 @@
             color: black;
         }
         
-        .role-admin {
-            background-color: #8B0000;
-            color: white;
-        }
-        
         .user-stats {
             font-size: 14px;
             color: #5f6368;
@@ -621,184 +608,96 @@
         }
         
         /* Новые стили для профиля пользователя */
-        .user-profile {
-            display: flex;
-            gap: 30px;
-            align-items: flex-start;
-        }
-        
-        .profile-avatar {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #8B0000, #A52A2A);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 48px;
-            font-weight: bold;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-            border: 4px solid white;
-            outline: 2px solid #8B0000;
+        .profile-section {
+            display: none;
         }
         
         .profile-info {
-            flex: 1;
+            margin-bottom: 20px;
         }
         
-        .profile-section {
-            margin-bottom: 30px;
-        }
-        
-        .profile-section h3 {
-            color: #8B0000;
-            margin-bottom: 15px;
-            padding-bottom: 8px;
-            border-bottom: 2px solid #f0f0f0;
-        }
-        
-        .info-row {
-            display: flex;
+        .profile-field {
             margin-bottom: 10px;
-            padding: 8px 0;
-        }
-        
-        .info-label {
-            font-weight: 600;
-            width: 150px;
-            color: #555;
-        }
-        
-        .info-value {
-            flex: 1;
-        }
-        
-        .assigned-tests {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 20px;
-            margin-top: 20px;
-        }
-        
-        .test-card {
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            padding: 20px;
+            padding: 10px;
             background-color: #f8f9fa;
-            transition: transform 0.2s, box-shadow 0.2s;
+            border-radius: 4px;
         }
         
-        .test-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        .profile-field label {
+            font-weight: bold;
+            margin-bottom: 5px;
         }
         
-        .test-card.completed {
-            border-left: 4px solid #0b8043;
+        .profile-field span {
+            display: block;
+            padding: 5px 0;
         }
         
-        .test-card.available {
-            border-left: 4px solid #1a73e8;
+        .change-password-form {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
         }
         
-        .test-card.not-available {
-            border-left: 4px solid #5f6368;
+        .test-selection {
+            display: none;
+        }
+        
+        .test-option {
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 15px;
+            margin-bottom: 15px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        
+        .test-option:hover {
+            background-color: #f9f9f9;
+        }
+        
+        .test-option.selected {
+            background-color: #ffe6e6;
+            border-color: #8B0000;
+        }
+        
+        .test-option.completed {
+            background-color: #e6ffe6;
+            border-color: #0b8043;
+        }
+        
+        .test-option.disabled {
+            background-color: #f5f5f5;
+            cursor: not-allowed;
             opacity: 0.7;
         }
         
         .test-status {
-            display: inline-block;
-            padding: 4px 8px;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+        
+        .retry-request {
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #fff3cd;
+            border: 1px solid #ffeaa7;
             border-radius: 4px;
-            font-size: 12px;
-            font-weight: 600;
-            margin-bottom: 10px;
         }
         
-        .status-completed {
-            background-color: #0b8043;
-            color: white;
+        .request-pending {
+            background-color: #d1ecf1;
+            border-color: #bee5eb;
         }
         
-        .status-available {
-            background-color: #1a73e8;
-            color: white;
+        .request-approved {
+            background-color: #d4edda;
+            border-color: #c3e6cb;
         }
         
-        .status-not-available {
-            background-color: #5f6368;
-            color: white;
-        }
-        
-        .test-actions {
-            margin-top: 15px;
-            display: flex;
-            gap: 10px;
-        }
-        
-        .user-nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-            padding-bottom: 15px;
-            border-bottom: 1px solid #eee;
-        }
-        
-        .user-welcome {
-            font-size: 18px;
-            font-weight: 600;
-            color: #8B0000;
-        }
-        
-        .user-nav-buttons {
-            display: flex;
-            gap: 10px;
-        }
-        
-        .password-change-form {
-            background-color: #f8f9fa;
-            padding: 20px;
-            border-radius: 8px;
-            margin-top: 20px;
-        }
-        
-        .password-change-form.hidden {
-            display: none;
-        }
-        
-        .password-fields {
-            display: grid;
-            grid-template-columns: 1fr 1fr auto;
-            gap: 10px;
-            align-items: end;
-        }
-        
-        @media (max-width: 768px) {
-            .user-profile {
-                flex-direction: column;
-                align-items: center;
-                text-align: center;
-            }
-            
-            .info-row {
-                flex-direction: column;
-                text-align: center;
-            }
-            
-            .info-label {
-                width: 100%;
-                margin-bottom: 5px;
-            }
-            
-            .password-fields {
-                grid-template-columns: 1fr;
-            }
-            
-            .assigned-tests {
-                grid-template-columns: 1fr;
-            }
+        .request-rejected {
+            background-color: #f8d7da;
+            border-color: #f5c6cb;
         }
         
         @media (max-width: 600px) {
@@ -857,17 +756,6 @@
                 position: static;
                 margin-bottom: 10px;
             }
-            
-            .user-nav {
-                flex-direction: column;
-                gap: 15px;
-                align-items: flex-start;
-            }
-            
-            .user-nav-buttons {
-                width: 100%;
-                justify-content: space-between;
-            }
         }
     </style>
 </head>
@@ -903,92 +791,78 @@
                 <button class="btn btn-block" id="login-btn">Войти</button>
             </div>
             
-            <!-- Главная страница пользователя -->
-            <div class="card test-section" id="user-dashboard">
-                <div class="user-nav">
-                    <div class="user-welcome">Добро пожаловать, <span id="welcome-user">Пользователь</span>!</div>
-                    <div class="user-nav-buttons">
-                        <button class="btn btn-info" id="profile-btn">Мой профиль</button>
-                        <button class="btn btn-secondary" id="user-logout-btn">Выйти</button>
-                    </div>
-                </div>
-                
-                <h2>Назначенные тесты</h2>
-                <p>Ниже представлены тесты, назначенные вам для прохождения.</p>
-                
-                <div id="user-assignments-container">
-                    <!-- Назначенные тесты будут добавлены динамически -->
-                </div>
-            </div>
-            
             <!-- Профиль пользователя -->
-            <div class="card test-section" id="user-profile-section">
-                <div class="user-nav">
-                    <div class="user-welcome">Мой профиль</div>
-                    <div class="user-nav-buttons">
-                        <button class="btn" id="back-to-dashboard">Назад к тестам</button>
-                        <button class="btn btn-secondary" id="profile-logout-btn">Выйти</button>
-                    </div>
-                </div>
+            <div class="card profile-section" id="profile-section">
+                <h2>Профиль пользователя</h2>
                 
-                <div class="user-profile">
-                    <div class="profile-avatar" id="profile-avatar">
-                        <!-- Аватар будет сгенерирован динамически -->
+                <div class="profile-info">
+                    <div class="profile-field">
+                        <label>Имя пользователя</label>
+                        <span id="profile-username"></span>
                     </div>
                     
-                    <div class="profile-info">
-                        <div class="profile-section">
-                            <h3>Основная информация</h3>
-                            <div class="info-row">
-                                <div class="info-label">Логин:</div>
-                                <div class="info-value" id="profile-login"></div>
-                            </div>
-                            <div class="info-row">
-                                <div class="info-label">Роль:</div>
-                                <div class="info-value" id="profile-role"></div>
-                            </div>
-                            <div class="info-row">
-                                <div class="info-label">ID пользователя:</div>
-                                <div class="info-value" id="profile-id"></div>
-                            </div>
-                        </div>
-                        
-                        <div class="profile-section">
-                            <h3>Безопасность</h3>
-                            <button class="btn btn-warning" id="change-password-btn">Сменить пароль</button>
-                            
-                            <div class="password-change-form hidden" id="password-change-form">
-                                <h4>Смена пароля</h4>
-                                <div class="password-fields">
-                                    <div>
-                                        <label for="current-password">Текущий пароль</label>
-                                        <input type="password" id="current-password" placeholder="Введите текущий пароль">
-                                    </div>
-                                    <div>
-                                        <label for="new-password">Новый пароль</label>
-                                        <input type="password" id="new-password" placeholder="Введите новый пароль">
-                                    </div>
-                                    <div>
-                                        <button class="btn btn-success" id="save-password-btn">Сохранить</button>
-                                    </div>
-                                </div>
-                                <div class="error hidden" id="password-error"></div>
-                                <div class="success hidden" id="password-success"></div>
-                            </div>
-                        </div>
+                    <div class="profile-field">
+                        <label>Роль</label>
+                        <span id="profile-role"></span>
                     </div>
-                </div>
-            </div>
-            
-            <!-- Раздел тестирования -->
-            <div class="card test-section" id="test-section">
-                <div class="user-nav">
-                    <div class="user-welcome" id="test-title">Тестирование</div>
-                    <div class="user-nav-buttons">
-                        <button class="btn btn-secondary" id="back-from-test">Отмена</button>
+                    
+                    <div class="profile-field">
+                        <label>Подразделение</label>
+                        <span id="profile-unit"></span>
+                    </div>
+                    
+                    <div class="profile-field">
+                        <label>Дата регистрации</label>
+                        <span id="profile-registration-date"></span>
                     </div>
                 </div>
                 
+                <div class="change-password-form">
+                    <h3>Смена пароля</h3>
+                    
+                    <div class="form-group">
+                        <label for="current-password">Текущий пароль</label>
+                        <input type="password" id="current-password" placeholder="Введите текущий пароль">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="new-password">Новый пароль</label>
+                        <input type="password" id="new-password" placeholder="Введите новый пароль">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="confirm-password">Подтвердите новый пароль</label>
+                        <input type="password" id="confirm-password" placeholder="Повторите новый пароль">
+                    </div>
+                    
+                    <div class="error hidden" id="password-change-error"></div>
+                    <div class="success hidden" id="password-change-success">Пароль успешно изменен!</div>
+                    
+                    <button class="btn" id="change-password-btn">Сменить пароль</button>
+                </div>
+                
+                <div style="margin-top: 20px; display: flex; gap: 10px;">
+                    <button class="btn" id="profile-to-tests">К тестам</button>
+                    <button class="btn btn-secondary" id="logout-from-profile">Выйти</button>
+                </div>
+            </div>
+            
+            <!-- Выбор теста -->
+            <div class="card test-selection" id="test-selection">
+                <h2>Выбор теста</h2>
+                <p>Выберите тест для прохождения. Каждый тест можно пройти только один раз.</p>
+                
+                <div id="available-tests">
+                    <!-- Доступные тесты будут добавлены динамически -->
+                </div>
+                
+                <div style="margin-top: 20px; display: flex; gap: 10px;">
+                    <button class="btn" id="start-selected-test">Начать выбранный тест</button>
+                    <button class="btn btn-secondary" id="back-to-profile">Вернуться в профиль</button>
+                </div>
+            </div>
+            
+            <div class="card test-section" id="test-section">
                 <div class="timer" id="timer">Общее время: 30:00</div>
                 <div class="question-timer" id="question-timer">Время на вопрос: 60 сек.</div>
                 <div class="question-counter" id="question-counter">Вопрос 1 из 3</div>
@@ -1022,8 +896,8 @@
                         <!-- Детали результатов будут добавлены динамически -->
                     </div>
                     
-                    <button class="btn" id="back-to-dashboard-from-results">Вернуться к тестам</button>
-                    <button class="btn btn-secondary" id="results-logout-btn" style="margin-top: 10px;">Выйти</button>
+                    <button class="btn hidden" id="restart-test">Пройти тест снова</button>
+                    <button class="btn btn-secondary" id="logout-btn" style="margin-top: 10px;">Выйти</button>
                 </div>
             </div>
         </div>
@@ -1058,6 +932,7 @@
                     <div class="tab" data-tab="questions">Управление вопросами</div>
                     <div class="tab" data-tab="assignments">Назначение тестов</div>
                     <div class="tab" data-tab="results">Результаты тестов</div>
+                    <div class="tab" data-tab="retry-requests">Запросы на перепрохождение</div>
                     <div class="tab" data-tab="settings">Настройки системы</div>
                 </div>
                 
@@ -1105,6 +980,18 @@
                                     <option value="doctor">Полевой Врач</option>
                                     <option value="medic">Полевой Фельдшер</option>
                                     <option value="sanitary">Полевой Санитар</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="edit-user-unit">Подразделение</label>
+                                <select id="edit-user-unit">
+                                    <option value="41">41</option>
+                                    <option value="212">212</option>
+                                    <option value="501">501</option>
+                                    <option value="CG">CG</option>
+                                    <option value="СТ">СТ</option>
+                                    <option value="Отсутствует">Отсутствует</option>
                                 </select>
                             </div>
                             
@@ -1230,18 +1117,23 @@
                     </div>
                 </div>
                 
+                <div class="tab-content" id="retry-requests-tab">
+                    <div class="card">
+                        <h2>Запросы на перепрохождение тестов</h2>
+                        <p>Управление запросами пользователей на повторное прохождение тестов.</p>
+                        <div id="retry-requests-list">
+                            <!-- Запросы на перепрохождение будут добавлены динамически -->
+                        </div>
+                    </div>
+                </div>
+                
                 <div class="tab-content" id="settings-tab">
                     <div class="card">
                         <h2>Настройки системы</h2>
                         <p>Настройте общие параметры тестирования.</p>
                         
                         <div class="form-group">
-                            <label for="allow-retakes">Разрешить перепрохождение тестов:</label>
-                            <select id="allow-retakes">
-                                <option value="no">Запрещено</option>
-                                <option value="admin">Только с разрешения администратора</option>
-                                <option value="yes">Разрешено</option>
-                            </select>
+                            <p>Общее время теста теперь настраивается для каждого набора вопросов индивидуально.</p>
                         </div>
                         
                         <button class="btn btn-block" id="save-settings">Сохранить настройки</button>
@@ -1312,7 +1204,8 @@
                         login: 'admin',
                         password: 'admin123',
                         role: 'admin',
-                        createdAt: new Date().toISOString()
+                        unit: 'Отсутствует',
+                        registrationDate: new Date().toISOString()
                     };
                     
                     await saveUser(defaultAdmin);
@@ -1579,6 +1472,73 @@
             }
         }
 
+        // Новые функции для запросов на перепрохождение
+        async function loadRetryRequests() {
+            try {
+                if (!firebaseConnected) {
+                    return getLocalRetryRequests();
+                }
+
+                const snapshot = await db.collection('retryRequests').get();
+                const retryRequests = [];
+                
+                snapshot.forEach(doc => {
+                    retryRequests.push({
+                        id: doc.id,
+                        ...doc.data()
+                    });
+                });
+                
+                return retryRequests;
+            } catch (error) {
+                console.error('❌ Ошибка загрузки запросов на перепрохождение:', error);
+                return getLocalRetryRequests();
+            }
+        }
+
+        async function saveRetryRequest(retryRequest) {
+            try {
+                if (!firebaseConnected) {
+                    return saveRetryRequestToLocal(retryRequest);
+                }
+
+                if (retryRequest.id) {
+                    await db.collection('retryRequests').doc(retryRequest.id).update(retryRequest);
+                } else {
+                    const docRef = await db.collection('retryRequests').add(retryRequest);
+                    retryRequest.id = docRef.id;
+                }
+                
+                saveRetryRequestToLocal(retryRequest);
+                return retryRequest;
+            } catch (error) {
+                console.error('❌ Ошибка сохранения запроса на перепрохождение:', error);
+                saveRetryRequestToLocal(retryRequest);
+                throw error;
+            }
+        }
+
+        async function deleteRetryRequest(retryRequestId) {
+            try {
+                if (!firebaseConnected) {
+                    const retryRequests = getLocalRetryRequests();
+                    const updatedRetryRequests = retryRequests.filter(r => r.id !== retryRequestId);
+                    localStorage.setItem('medicalTestRetryRequests', JSON.stringify(updatedRetryRequests));
+                    return;
+                }
+
+                await db.collection('retryRequests').doc(retryRequestId).delete();
+                
+                const retryRequests = getLocalRetryRequests();
+                const updatedRetryRequests = retryRequests.filter(r => r.id !== retryRequestId);
+                localStorage.setItem('medicalTestRetryRequests', JSON.stringify(updatedRetryRequests));
+                
+            } catch (error) {
+                console.error('❌ Ошибка удаления запроса на перепрохождение:', error);
+                throw error;
+            }
+        }
+
         // Функции для работы с localStorage
         function getLocalUsers() {
             try {
@@ -1688,6 +1648,34 @@
             }
         }
 
+        // Функции для работы с запросами на перепрохождение в localStorage
+        function getLocalRetryRequests() {
+            try {
+                const retryRequests = localStorage.getItem('medicalTestRetryRequests');
+                return retryRequests ? JSON.parse(retryRequests) : [];
+            } catch (error) {
+                console.error('❌ Ошибка получения запросов на перепрохождение из localStorage:', error);
+                return [];
+            }
+        }
+
+        function saveRetryRequestToLocal(retryRequest) {
+            try {
+                const retryRequests = getLocalRetryRequests();
+                const existingIndex = retryRequests.findIndex(r => r.id === retryRequest.id);
+                
+                if (existingIndex >= 0) {
+                    retryRequests[existingIndex] = retryRequest;
+                } else {
+                    retryRequests.push(retryRequest);
+                }
+                
+                localStorage.setItem('medicalTestRetryRequests', JSON.stringify(retryRequests));
+            } catch (error) {
+                console.error('❌ Ошибка сохранения запроса на перепрохождение в localStorage:', error);
+            }
+        }
+
         // Основная логика приложения
         let currentUser = null;
         let currentQuestionSet = null;
@@ -1698,7 +1686,7 @@
         let timerInterval;
         let questionTimerInterval;
         let remainingQuestionTime = 0;
-        let currentAssignment = null;
+        let selectedTestId = null;
 
         // DOM элементы
         const userPanel = document.getElementById('user-panel');
@@ -1711,19 +1699,17 @@
         const adminLoginBtn = document.getElementById('admin-login-btn');
         const adminLogoutBtn = document.getElementById('admin-logout');
         const loginSection = document.getElementById('login-section');
-        const userDashboard = document.getElementById('user-dashboard');
-        const userProfileSection = document.getElementById('user-profile-section');
+        const profileSection = document.getElementById('profile-section');
+        const testSelectionSection = document.getElementById('test-selection');
         const testSection = document.getElementById('test-section');
         const resultsSection = document.getElementById('results-section');
         const loginBtn = document.getElementById('login-btn');
-        const userLogoutBtn = document.getElementById('user-logout-btn');
-        const profileLogoutBtn = document.getElementById('profile-logout-btn');
-        const resultsLogoutBtn = document.getElementById('results-logout-btn');
-        const profileBtn = document.getElementById('profile-btn');
-        const backToDashboardBtn = document.getElementById('back-to-dashboard');
-        const backToDashboardFromResultsBtn = document.getElementById('back-to-dashboard-from-results');
-        const backFromTestBtn = document.getElementById('back-from-test');
+        const logoutBtn = document.getElementById('logout-btn');
+        const logoutFromProfileBtn = document.getElementById('logout-from-profile');
+        const profileToTestsBtn = document.getElementById('profile-to-tests');
+        const backToProfileBtn = document.getElementById('back-to-profile');
         const submitTestBtn = document.getElementById('submit-test');
+        const restartTestBtn = document.getElementById('restart-test');
         const nextQuestionBtn = document.getElementById('next-question');
         const timerElement = document.getElementById('timer');
         const questionTimerElement = document.getElementById('question-timer');
@@ -1734,18 +1720,8 @@
         const resultMessageElement = document.getElementById('result-message');
         const resultsSummaryElement = document.getElementById('results-summary');
         const resultsDetailsElement = document.getElementById('results-details');
-        const welcomeUserElement = document.getElementById('welcome-user');
-        const userAssignmentsContainer = document.getElementById('user-assignments-container');
-        const profileAvatarElement = document.getElementById('profile-avatar');
-        const profileLoginElement = document.getElementById('profile-login');
-        const profileRoleElement = document.getElementById('profile-role');
-        const profileIdElement = document.getElementById('profile-id');
         const changePasswordBtn = document.getElementById('change-password-btn');
-        const passwordChangeForm = document.getElementById('password-change-form');
-        const savePasswordBtn = document.getElementById('save-password-btn');
-        const passwordErrorElement = document.getElementById('password-error');
-        const passwordSuccessElement = document.getElementById('password-success');
-        const testTitleElement = document.getElementById('test-title');
+        const startSelectedTestBtn = document.getElementById('start-selected-test');
 
         // Инициализация приложения
         document.addEventListener('DOMContentLoaded', function() {
@@ -1759,16 +1735,11 @@
             const savedSettings = localStorage.getItem('medicalTestSettings');
             if (savedSettings) {
                 const settings = JSON.parse(savedSettings);
-                if (settings.allowRetakes) {
-                    document.getElementById('allow-retakes').value = settings.allowRetakes;
-                }
             }
         }
 
         function saveSettings() {
-            const settings = {
-                allowRetakes: document.getElementById('allow-retakes').value
-            };
+            const settings = {};
             localStorage.setItem('medicalTestSettings', JSON.stringify(settings));
         }
 
@@ -1816,27 +1787,39 @@
                 authenticateUser(username, password);
             });
 
-            userLogoutBtn.addEventListener('click', logoutUser);
-            profileLogoutBtn.addEventListener('click', logoutUser);
-            resultsLogoutBtn.addEventListener('click', logoutUser);
+            logoutBtn.addEventListener('click', function() {
+                currentUser = null;
+                localStorage.removeItem('currentMedicalTestUser');
+                showLoginSection();
+                adminToggle.style.display = 'block';
+            });
 
-            profileBtn.addEventListener('click', showUserProfile);
-            backToDashboardBtn.addEventListener('click', showUserDashboard);
-            backToDashboardFromResultsBtn.addEventListener('click', showUserDashboard);
-            backFromTestBtn.addEventListener('click', function() {
-                if (confirm('Вы уверены, что хотите прервать тестирование? Ваши ответы не будут сохранены.')) {
-                    showUserDashboard();
-                }
+            logoutFromProfileBtn.addEventListener('click', function() {
+                currentUser = null;
+                localStorage.removeItem('currentMedicalTestUser');
+                showLoginSection();
+                adminToggle.style.display = 'block';
+            });
+
+            profileToTestsBtn.addEventListener('click', function() {
+                showTestSelection();
+            });
+
+            backToProfileBtn.addEventListener('click', function() {
+                showProfileSection();
+            });
+
+            changePasswordBtn.addEventListener('click', function() {
+                changePassword();
+            });
+
+            startSelectedTestBtn.addEventListener('click', function() {
+                startSelectedTest();
             });
 
             nextQuestionBtn.addEventListener('click', nextQuestion);
             submitTestBtn.addEventListener('click', submitTest);
-
-            changePasswordBtn.addEventListener('click', function() {
-                passwordChangeForm.classList.toggle('hidden');
-            });
-
-            savePasswordBtn.addEventListener('click', changePassword);
+            restartTestBtn.addEventListener('click', restartTest);
 
             document.querySelectorAll('.tab').forEach(tab => {
                 tab.addEventListener('click', function() {
@@ -1856,6 +1839,8 @@
                         loadAssignmentsList();
                     } else if (tabId === 'results') {
                         loadTestResultsList();
+                    } else if (tabId === 'retry-requests') {
+                        loadRetryRequestsList();
                     }
                 });
             });
@@ -1904,7 +1889,7 @@
                 if (user) {
                     currentUser = user;
                     localStorage.setItem('currentMedicalTestUser', JSON.stringify(user));
-                    showUserDashboard();
+                    showProfileSection();
                     document.getElementById('login-error').classList.add('hidden');
                     document.getElementById('no-assignment-error').classList.add('hidden');
                 } else {
@@ -1921,8 +1906,8 @@
         // Отображение разделов
         function showLoginSection() {
             loginSection.style.display = 'block';
-            userDashboard.style.display = 'none';
-            userProfileSection.style.display = 'none';
+            profileSection.style.display = 'none';
+            testSelectionSection.style.display = 'none';
             testSection.style.display = 'none';
             resultsSection.style.display = 'none';
             document.getElementById('username').value = '';
@@ -1932,30 +1917,30 @@
             adminToggle.style.display = 'block';
         }
 
-        function showUserDashboard() {
+        function showProfileSection() {
             loginSection.style.display = 'none';
-            userDashboard.style.display = 'block';
-            userProfileSection.style.display = 'none';
+            profileSection.style.display = 'block';
+            testSelectionSection.style.display = 'none';
             testSection.style.display = 'none';
             resultsSection.style.display = 'none';
             adminToggle.style.display = 'none';
-            loadUserAssignments();
+            loadProfileData();
         }
 
-        function showUserProfile() {
+        function showTestSelection() {
             loginSection.style.display = 'none';
-            userDashboard.style.display = 'none';
-            userProfileSection.style.display = 'block';
+            profileSection.style.display = 'none';
+            testSelectionSection.style.display = 'block';
             testSection.style.display = 'none';
             resultsSection.style.display = 'none';
             adminToggle.style.display = 'none';
-            displayUserProfile();
+            loadAvailableTests();
         }
 
         function showTestSection() {
             loginSection.style.display = 'none';
-            userDashboard.style.display = 'none';
-            userProfileSection.style.display = 'none';
+            profileSection.style.display = 'none';
+            testSelectionSection.style.display = 'none';
             testSection.style.display = 'block';
             resultsSection.style.display = 'none';
             adminToggle.style.display = 'none';
@@ -1963,179 +1948,79 @@
 
         function showResultsSection() {
             loginSection.style.display = 'none';
-            userDashboard.style.display = 'none';
-            userProfileSection.style.display = 'none';
+            profileSection.style.display = 'none';
+            testSelectionSection.style.display = 'none';
             testSection.style.display = 'none';
             resultsSection.style.display = 'block';
-            adminToggle.style.display = 'none';
+            adminToggle.style.display = 'block';
         }
 
-        // Выход пользователя
-        function logoutUser() {
-            currentUser = null;
-            localStorage.removeItem('currentMedicalTestUser');
-            showLoginSection();
-        }
-
-        // Загрузка назначений пользователя
-        async function loadUserAssignments() {
-            try {
-                welcomeUserElement.textContent = currentUser.login;
-                
-                const assignments = await loadAssignments();
-                const questionSets = await loadQuestionSets();
-                const testResults = await loadTestResults();
-                
-                const userAssignments = assignments.filter(a => a.userId === currentUser.id);
-                
-                userAssignmentsContainer.innerHTML = '';
-                
-                if (userAssignments.length === 0) {
-                    userAssignmentsContainer.innerHTML = `
-                        <div class="test-card not-available">
-                            <h3>Нет назначенных тестов</h3>
-                            <p>Для вас пока не назначено ни одного теста. Обратитесь к администратору.</p>
-                        </div>
-                    `;
-                    return;
-                }
-                
-                for (const assignment of userAssignments) {
-                    const questionSet = questionSets.find(qs => qs.id === assignment.questionSetId);
-                    if (!questionSet) continue;
-                    
-                    const userResults = testResults.filter(tr => 
-                        tr.userId === currentUser.id && tr.questionSetId === questionSet.id
-                    );
-                    
-                    const lastResult = userResults.length > 0 ? 
-                        userResults.reduce((latest, current) => 
-                            new Date(current.timestamp) > new Date(latest.timestamp) ? current : latest
-                        ) : null;
-                    
-                    const testCard = document.createElement('div');
-                    testCard.className = 'test-card';
-                    
-                    let status = 'available';
-                    let statusText = 'Доступен';
-                    let statusClass = 'status-available';
-                    let buttonHtml = '';
-                    
-                    if (lastResult) {
-                        status = 'completed';
-                        statusText = 'Пройден';
-                        statusClass = 'status-completed';
-                        
-                        const settings = JSON.parse(localStorage.getItem('medicalTestSettings') || '{}');
-                        const allowRetakes = settings.allowRetakes || 'no';
-                        
-                        if (allowRetakes === 'yes') {
-                            buttonHtml = `<button class="btn btn-warning retake-test" data-assignment-id="${assignment.id}">Пройти снова</button>`;
-                        } else if (allowRetakes === 'admin') {
-                            buttonHtml = `<button class="btn btn-secondary" disabled>Требуется разрешение администратора</button>`;
-                        } else {
-                            buttonHtml = `<button class="btn btn-secondary" disabled>Тест уже пройден</button>`;
-                        }
-                        
-                        buttonHtml += `<button class="btn btn-info view-results" data-result-id="${lastResult.id}">Посмотреть результат</button>`;
-                    } else {
-                        buttonHtml = `<button class="btn btn-success start-test" data-assignment-id="${assignment.id}">Начать тест</button>`;
-                    }
-                    
-                    testCard.innerHTML = `
-                        <div class="test-status ${statusClass}">${statusText}</div>
-                        <h3>${questionSet.name}</h3>
-                        <p>${questionSet.questions ? questionSet.questions.length : 0} вопросов, ${questionSet.totalTime || 30} минут</p>
-                        ${lastResult ? `<p>Последний результат: ${lastResult.score}/${lastResult.totalQuestions} (${lastResult.percentage}%)</p>` : ''}
-                        <div class="test-actions">
-                            ${buttonHtml}
-                        </div>
-                    `;
-                    
-                    if (lastResult) {
-                        testCard.classList.add('completed');
-                    } else {
-                        testCard.classList.add('available');
-                    }
-                    
-                    userAssignmentsContainer.appendChild(testCard);
-                }
-                
-                // Добавляем обработчики событий для кнопок
-                userAssignmentsContainer.addEventListener('click', function(e) {
-                    if (e.target.classList.contains('start-test')) {
-                        const assignmentId = e.target.getAttribute('data-assignment-id');
-                        startTest(assignmentId);
-                    }
-                    
-                    if (e.target.classList.contains('retake-test')) {
-                        const assignmentId = e.target.getAttribute('data-assignment-id');
-                        startTest(assignmentId);
-                    }
-                    
-                    if (e.target.classList.contains('view-results')) {
-                        const resultId = e.target.getAttribute('data-result-id');
-                        viewTestResult(resultId);
-                    }
-                });
-                
-            } catch (error) {
-                console.error('❌ Ошибка загрузки назначений пользователя:', error);
-                userAssignmentsContainer.innerHTML = `
-                    <div class="test-card not-available">
-                        <h3>Ошибка загрузки</h3>
-                        <p>Произошла ошибка при загрузке назначенных тестов. Попробуйте позже.</p>
-                    </div>
-                `;
-            }
-        }
-
-        // Отображение профиля пользователя
-        function displayUserProfile() {
-            profileLoginElement.textContent = currentUser.login;
-            profileIdElement.textContent = currentUser.id;
+        // Загрузка данных профиля
+        function loadProfileData() {
+            if (!currentUser) return;
             
-            let roleDisplay = '';
-            switch(currentUser.role) {
-                case 'doctor':
-                    roleDisplay = 'Полевой Врач';
-                    break;
-                case 'medic':
-                    roleDisplay = 'Полевой Фельдшер';
-                    break;
-                case 'sanitary':
-                    roleDisplay = 'Полевой Санитар';
-                    break;
-                case 'admin':
-                    roleDisplay = 'Администратор';
-                    break;
-                default:
-                    roleDisplay = currentUser.role;
+            document.getElementById('profile-username').textContent = currentUser.login;
+            
+            let roleDisplayName = '';
+            if (currentUser.role === 'doctor') {
+                roleDisplayName = 'Полевой Врач';
+            } else if (currentUser.role === 'medic') {
+                roleDisplayName = 'Полевой Фельдшер';
+            } else if (currentUser.role === 'sanitary') {
+                roleDisplayName = 'Полевой Санитар';
+            } else {
+                roleDisplayName = currentUser.role;
             }
             
-            profileRoleElement.textContent = roleDisplay;
+            document.getElementById('profile-role').textContent = roleDisplayName;
+            document.getElementById('profile-unit').textContent = currentUser.unit || 'Отсутствует';
             
-            // Генерация аватара на основе первой буквы логина
-            const firstLetter = currentUser.login.charAt(0).toUpperCase();
-            profileAvatarElement.textContent = firstLetter;
+            const registrationDate = currentUser.registrationDate ? 
+                new Date(currentUser.registrationDate).toLocaleDateString('ru-RU') : 
+                'Неизвестно';
+            document.getElementById('profile-registration-date').textContent = registrationDate;
+            
+            // Очищаем форму смены пароля
+            document.getElementById('current-password').value = '';
+            document.getElementById('new-password').value = '';
+            document.getElementById('confirm-password').value = '';
+            document.getElementById('password-change-error').classList.add('hidden');
+            document.getElementById('password-change-success').classList.add('hidden');
         }
 
         // Смена пароля
         async function changePassword() {
             const currentPassword = document.getElementById('current-password').value;
             const newPassword = document.getElementById('new-password').value;
+            const confirmPassword = document.getElementById('confirm-password').value;
             
-            if (!currentPassword || !newPassword) {
-                passwordErrorElement.textContent = 'Заполните все поля';
-                passwordErrorElement.classList.remove('hidden');
-                passwordSuccessElement.classList.add('hidden');
+            const errorElement = document.getElementById('password-change-error');
+            const successElement = document.getElementById('password-change-success');
+            
+            errorElement.classList.add('hidden');
+            successElement.classList.add('hidden');
+            
+            if (!currentPassword || !newPassword || !confirmPassword) {
+                errorElement.textContent = 'Заполните все поля';
+                errorElement.classList.remove('hidden');
                 return;
             }
             
             if (currentPassword !== currentUser.password) {
-                passwordErrorElement.textContent = 'Текущий пароль неверен';
-                passwordErrorElement.classList.remove('hidden');
-                passwordSuccessElement.classList.add('hidden');
+                errorElement.textContent = 'Текущий пароль неверен';
+                errorElement.classList.remove('hidden');
+                return;
+            }
+            
+            if (newPassword !== confirmPassword) {
+                errorElement.textContent = 'Новые пароли не совпадают';
+                errorElement.classList.remove('hidden');
+                return;
+            }
+            
+            if (newPassword.length < 4) {
+                errorElement.textContent = 'Новый пароль должен содержать не менее 4 символов';
+                errorElement.classList.remove('hidden');
                 return;
             }
             
@@ -2149,86 +2034,205 @@
                 currentUser = updatedUser;
                 localStorage.setItem('currentMedicalTestUser', JSON.stringify(currentUser));
                 
-                passwordSuccessElement.textContent = 'Пароль успешно изменен';
-                passwordSuccessElement.classList.remove('hidden');
-                passwordErrorElement.classList.add('hidden');
+                successElement.classList.remove('hidden');
                 
+                // Очищаем форму
                 document.getElementById('current-password').value = '';
                 document.getElementById('new-password').value = '';
-                
-                setTimeout(() => {
-                    passwordChangeForm.classList.add('hidden');
-                    passwordSuccessElement.classList.add('hidden');
-                }, 3000);
+                document.getElementById('confirm-password').value = '';
                 
             } catch (error) {
                 console.error('❌ Ошибка смены пароля:', error);
-                passwordErrorElement.textContent = 'Ошибка при смене пароля';
-                passwordErrorElement.classList.remove('hidden');
-                passwordSuccessElement.classList.add('hidden');
+                errorElement.textContent = 'Ошибка при смене пароля';
+                errorElement.classList.remove('hidden');
+            }
+        }
+
+        // Загрузка доступных тестов
+        async function loadAvailableTests() {
+            try {
+                const assignments = await loadAssignments();
+                const questionSets = await loadQuestionSets();
+                const testResults = await loadTestResults();
+                const retryRequests = await loadRetryRequests();
+                
+                const userAssignments = assignments.filter(a => a.userId === currentUser.id);
+                const availableTestsContainer = document.getElementById('available-tests');
+                availableTestsContainer.innerHTML = '';
+                
+                if (userAssignments.length === 0) {
+                    availableTestsContainer.innerHTML = '<p>Для вас не назначено ни одного теста. Обратитесь к администратору.</p>';
+                    return;
+                }
+                
+                for (const assignment of userAssignments) {
+                    const questionSet = questionSets.find(qs => qs.id === assignment.questionSetId);
+                    if (!questionSet) continue;
+                    
+                    const userResults = testResults.filter(r => 
+                        r.userId === currentUser.id && r.questionSetId === questionSet.id
+                    );
+                    
+                    const hasCompletedTest = userResults.length > 0;
+                    const hasPendingRequest = retryRequests.some(r => 
+                        r.userId === currentUser.id && 
+                        r.questionSetId === questionSet.id && 
+                        r.status === 'pending'
+                    );
+                    const hasApprovedRequest = retryRequests.some(r => 
+                        r.userId === currentUser.id && 
+                        r.questionSetId === questionSet.id && 
+                        r.status === 'approved'
+                    );
+                    
+                    const testOption = document.createElement('div');
+                    testOption.className = 'test-option';
+                    
+                    if (hasCompletedTest && !hasApprovedRequest) {
+                        testOption.classList.add('completed');
+                        if (hasPendingRequest) {
+                            testOption.classList.add('disabled');
+                        }
+                    }
+                    
+                    let statusHtml = '';
+                    if (hasCompletedTest) {
+                        if (hasApprovedRequest) {
+                            statusHtml = '<div class="test-status request-approved">Запрос на перепрохождение одобрен</div>';
+                        } else if (hasPendingRequest) {
+                            statusHtml = '<div class="test-status request-pending">Запрос на перепрохождение ожидает рассмотрения</div>';
+                        } else {
+                            statusHtml = '<div class="test-status">Тест пройден</div>';
+                        }
+                    }
+                    
+                    testOption.innerHTML = `
+                        <h3>${questionSet.name}</h3>
+                        <p>${questionSet.questions ? questionSet.questions.length : 0} вопросов, ${questionSet.totalTime || 30} минут</p>
+                        ${statusHtml}
+                        ${hasCompletedTest && !hasApprovedRequest && !hasPendingRequest ? 
+                            `<div class="retry-request">
+                                <p>Вы уже прошли этот тест. Хотите пройти его снова?</p>
+                                <button class="btn btn-warning request-retry" data-set-id="${questionSet.id}">Запросить перепрохождение</button>
+                            </div>` : 
+                            ''
+                        }
+                    `;
+                    
+                    // Если тест можно пройти, добавляем возможность выбора
+                    if (!hasCompletedTest || hasApprovedRequest) {
+                        testOption.addEventListener('click', function() {
+                            if (!testOption.classList.contains('disabled')) {
+                                document.querySelectorAll('.test-option').forEach(opt => {
+                                    opt.classList.remove('selected');
+                                });
+                                testOption.classList.add('selected');
+                                selectedTestId = questionSet.id;
+                            }
+                        });
+                    }
+                    
+                    availableTestsContainer.appendChild(testOption);
+                }
+                
+                // Добавляем обработчики для кнопок запроса перепрохождения
+                availableTestsContainer.addEventListener('click', function(e) {
+                    if (e.target.classList.contains('request-retry')) {
+                        const questionSetId = e.target.getAttribute('data-set-id');
+                        requestRetry(questionSetId);
+                    }
+                });
+                
+            } catch (error) {
+                console.error('❌ Ошибка загрузки доступных тестов:', error);
+                document.getElementById('available-tests').innerHTML = '<p>Ошибка при загрузке тестов. Попробуйте позже.</p>';
+            }
+        }
+
+        // Запрос на перепрохождение теста
+        async function requestRetry(questionSetId) {
+            try {
+                const retryRequest = {
+                    userId: currentUser.id,
+                    userName: currentUser.login,
+                    questionSetId: questionSetId,
+                    status: 'pending',
+                    requestDate: new Date().toISOString()
+                };
+                
+                await saveRetryRequest(retryRequest);
+                alert('Запрос на перепрохождение теста отправлен администратору.');
+                loadAvailableTests(); // Обновляем список тестов
+                
+            } catch (error) {
+                console.error('❌ Ошибка отправки запроса на перепрохождение:', error);
+                alert('Ошибка при отправке запроса. Попробуйте позже.');
+            }
+        }
+
+        // Запуск выбранного теста
+        function startSelectedTest() {
+            if (!selectedTestId) {
+                alert('Выберите тест для прохождения');
+                return;
+            }
+            
+            loadSelectedTest(selectedTestId);
+        }
+
+        // Загрузка выбранного теста
+        async function loadSelectedTest(questionSetId) {
+            try {
+                const questionSets = await loadQuestionSets();
+                const retryRequests = await loadRetryRequests();
+                
+                currentQuestionSet = questionSets.find(qs => qs.id === questionSetId);
+                
+                if (!currentQuestionSet) {
+                    alert('Выбранный тест не найден');
+                    return;
+                }
+                
+                // Проверяем, есть ли одобренный запрос на перепрохождение
+                const approvedRequest = retryRequests.find(r => 
+                    r.userId === currentUser.id && 
+                    r.questionSetId === questionSetId && 
+                    r.status === 'approved'
+                );
+                
+                // Если тест уже пройден и нет одобренного запроса, не позволяем пройти снова
+                const testResults = await loadTestResults();
+                const hasCompletedTest = testResults.some(r => 
+                    r.userId === currentUser.id && r.questionSetId === questionSetId
+                );
+                
+                if (hasCompletedTest && !approvedRequest) {
+                    alert('Вы уже прошли этот тест. Дождитесь одобрения запроса на перепрохождение.');
+                    return;
+                }
+                
+                // Если есть одобренный запрос, удаляем его после начала теста
+                if (approvedRequest) {
+                    await deleteRetryRequest(approvedRequest.id);
+                }
+                
+                totalTime = (currentQuestionSet.totalTime || 30) * 60;
+                startTest();
+                showTestSection();
+                
+            } catch (error) {
+                console.error('❌ Ошибка загрузки теста:', error);
+                alert('Ошибка при загрузке теста. Попробуйте позже.');
             }
         }
 
         // Запуск теста
-        async function startTest(assignmentId) {
-            try {
-                const assignments = await loadAssignments();
-                const assignment = assignments.find(a => a.id === assignmentId);
-                
-                if (!assignment) {
-                    alert('Назначение не найдено');
-                    return;
-                }
-                
-                const questionSets = await loadQuestionSets();
-                const questionSet = questionSets.find(qs => qs.id === assignment.questionSetId);
-                
-                if (!questionSet) {
-                    alert('Набор вопросов не найден');
-                    return;
-                }
-                
-                // Проверяем, был ли тест уже пройден
-                const testResults = await loadTestResults();
-                const existingResults = testResults.filter(tr => 
-                    tr.userId === currentUser.id && tr.questionSetId === questionSet.id
-                );
-                
-                if (existingResults.length > 0) {
-                    const settings = JSON.parse(localStorage.getItem('medicalTestSettings') || '{}');
-                    const allowRetakes = settings.allowRetakes || 'no';
-                    
-                    if (allowRetakes === 'no') {
-                        alert('Этот тест уже пройден и перепрохождение запрещено.');
-                        return;
-                    }
-                    
-                    if (allowRetakes === 'admin') {
-                        if (!confirm('Этот тест уже пройден. Для повторного прохождения требуется разрешение администратора. Продолжить?')) {
-                            return;
-                        }
-                    }
-                }
-                
-                currentQuestionSet = questionSet;
-                currentAssignment = assignment;
-                testTitleElement.textContent = `Тестирование: ${questionSet.name}`;
-                startTestExecution();
-                
-            } catch (error) {
-                console.error('❌ Ошибка запуска теста:', error);
-                alert('Ошибка при запуске теста');
-            }
-        }
-
-        // Запуск выполнения теста
-        function startTestExecution() {
+        function startTest() {
             currentQuestionIndex = 0;
             userAnswers = [];
             remainingQuestionTime = 0;
             startTimer();
             displayQuestion();
-            showTestSection();
         }
 
         // Таймер теста
@@ -2412,7 +2416,6 @@
                 userName: currentUser.login,
                 questionSetId: currentQuestionSet.id,
                 questionSetName: currentQuestionSet.name,
-                assignmentId: currentAssignment ? currentAssignment.id : null,
                 answers: [],
                 score: 0,
                 correctAnswers: 0,
@@ -2504,26 +2507,13 @@
                 resultItem.innerHTML = answerHtml;
                 resultsDetailsElement.appendChild(resultItem);
             });
+            
+            restartTestBtn.classList.add('hidden');
         }
 
-        // Просмотр результатов теста
-        async function viewTestResult(resultId) {
-            try {
-                const testResults = await loadTestResults();
-                const result = testResults.find(r => r.id === resultId);
-                
-                if (!result) {
-                    alert('Результат не найден');
-                    return;
-                }
-                
-                displayResults(result);
-                showResultsSection();
-                
-            } catch (error) {
-                console.error('❌ Ошибка просмотра результата:', error);
-                alert('Ошибка при загрузке результата');
-            }
+        // Перезапуск теста
+        function restartTest() {
+            showTestSelection();
         }
 
         // Админ-функции
@@ -2532,6 +2522,7 @@
             await loadQuestionSetsList();
             await loadAssignmentsList();
             await loadTestResultsList();
+            await loadRetryRequestsList();
         }
 
         // Управление пользователями
@@ -2569,6 +2560,10 @@
                         roleClass = 'role-user';
                     }
                     
+                    const registrationDate = user.registrationDate ? 
+                        new Date(user.registrationDate).toLocaleDateString('ru-RU') : 
+                        'Неизвестно';
+                    
                     userItem.innerHTML = `
                         <div class="user-header">
                             <div>
@@ -2582,6 +2577,8 @@
                         </div>
                         <div class="user-info">
                             <div class="user-stats">ID: ${user.id}</div>
+                            <div class="user-stats">Подразделение: ${user.unit || 'Отсутствует'}</div>
+                            <div class="user-stats">Дата регистрации: ${registrationDate}</div>
                         </div>
                     `;
                     
@@ -2631,7 +2628,8 @@
                     login: login,
                     password: password,
                     role: 'doctor',
-                    createdAt: new Date().toISOString()
+                    unit: 'Отсутствует',
+                    registrationDate: new Date().toISOString()
                 };
                 
                 await saveUser(newUser);
@@ -2667,6 +2665,7 @@
                 document.getElementById('edit-user-login').value = user.login;
                 document.getElementById('edit-user-password').value = '';
                 document.getElementById('edit-user-role').value = user.role;
+                document.getElementById('edit-user-unit').value = user.unit || 'Отсутствует';
                 
                 document.getElementById('user-editor').classList.remove('hidden');
                 document.getElementById('save-user').setAttribute('data-id', userId);
@@ -2682,6 +2681,7 @@
             const login = document.getElementById('edit-user-login').value;
             const password = document.getElementById('edit-user-password').value;
             const role = document.getElementById('edit-user-role').value;
+            const unit = document.getElementById('edit-user-unit').value;
             
             if (!login) {
                 alert('Заполните поле логина');
@@ -2706,7 +2706,8 @@
                 const updatedUser = {
                     ...users[userIndex],
                     login: login,
-                    role: role
+                    role: role,
+                    unit: unit
                 };
                 
                 if (password) {
@@ -2742,9 +2743,17 @@
                     await deleteAssignment(assignment.id);
                 }
                 
+                // Удаляем все запросы на перепрохождение пользователя
+                const retryRequests = await loadRetryRequests();
+                const userRetryRequests = retryRequests.filter(r => r.userId === userId);
+                
+                for (const request of userRetryRequests) {
+                    await deleteRetryRequest(request.id);
+                }
+                
+                // Удаляем пользователя
                 await deleteUser(userId);
                 await loadUsersList();
-                await loadAssignmentsList();
                 
             } catch (error) {
                 console.error('❌ Ошибка удаления пользователя:', error);
@@ -2957,6 +2966,14 @@
                     await deleteAssignment(assignment.id);
                 }
                 
+                // Удаляем все запросы на перепрохождение, связанные с этим набором вопросов
+                const retryRequests = await loadRetryRequests();
+                const retryRequestsToDelete = retryRequests.filter(r => r.questionSetId === questionSetId);
+                
+                for (const request of retryRequestsToDelete) {
+                    await deleteRetryRequest(request.id);
+                }
+                
                 // Удаляем сам набор вопросов
                 await deleteQuestionSet(questionSetId);
                 
@@ -2969,6 +2986,7 @@
                 // Перезагружаем списки
                 await loadQuestionSetsList();
                 await loadAssignmentsList();
+                await loadRetryRequestsList();
                 
                 alert('Набор вопросов успешно удален');
                 
@@ -3383,6 +3401,93 @@
             } catch (error) {
                 console.error('❌ Ошибка просмотра деталей результата:', error);
                 alert('Ошибка при загрузке деталей результата');
+            }
+        }
+
+        // Запросы на перепрохождение
+        async function loadRetryRequestsList() {
+            try {
+                const retryRequests = await loadRetryRequests();
+                const retryRequestsList = document.getElementById('retry-requests-list');
+                retryRequestsList.innerHTML = '';
+                
+                const pendingRequests = retryRequests.filter(r => r.status === 'pending');
+                
+                if (pendingRequests.length === 0) {
+                    retryRequestsList.innerHTML = '<p>Нет ожидающих запросов на перепрохождение</p>';
+                    return;
+                }
+                
+                for (const request of pendingRequests) {
+                    const users = await loadUsers();
+                    const questionSets = await loadQuestionSets();
+                    
+                    const user = users.find(u => u.id === request.userId);
+                    const questionSet = questionSets.find(qs => qs.id === request.questionSetId);
+                    
+                    const requestItem = document.createElement('div');
+                    requestItem.className = 'user-item';
+                    
+                    const requestDate = new Date(request.requestDate).toLocaleString('ru-RU');
+                    
+                    requestItem.innerHTML = `
+                        <div class="user-header">
+                            <div>
+                                <strong>${user ? user.login : 'Неизвестный пользователь'}</strong> - ${questionSet ? questionSet.name : 'Неизвестный набор'}
+                            </div>
+                        </div>
+                        <div class="user-info">
+                            <div class="user-stats">Дата запроса: ${requestDate}</div>
+                        </div>
+                        <div class="user-actions">
+                            <button class="btn btn-success approve-retry" data-id="${request.id}">Одобрить</button>
+                            <button class="btn btn-danger reject-retry" data-id="${request.id}">Отклонить</button>
+                        </div>
+                    `;
+                    
+                    retryRequestsList.appendChild(requestItem);
+                }
+                
+                retryRequestsList.addEventListener('click', function(e) {
+                    if (e.target.classList.contains('approve-retry')) {
+                        const requestId = e.target.getAttribute('data-id');
+                        processRetryRequest(requestId, 'approved');
+                    }
+                    if (e.target.classList.contains('reject-retry')) {
+                        const requestId = e.target.getAttribute('data-id');
+                        processRetryRequest(requestId, 'rejected');
+                    }
+                });
+                
+            } catch (error) {
+                console.error('❌ Ошибка загрузки запросов на перепрохождение:', error);
+            }
+        }
+
+        async function processRetryRequest(requestId, status) {
+            try {
+                const retryRequests = await loadRetryRequests();
+                const request = retryRequests.find(r => r.id === requestId);
+                
+                if (!request) {
+                    alert('Запрос не найден');
+                    return;
+                }
+                
+                const updatedRequest = {
+                    ...request,
+                    status: status,
+                    processedAt: new Date().toISOString()
+                };
+                
+                await saveRetryRequest(updatedRequest);
+                await loadRetryRequestsList();
+                
+                alert(`Запрос на перепрохождение ${status === 'approved' ? 'одобрен' : 'отклонен'}`);
+                
+            } catch (error) {
+                console.error('❌ Ошибка обработки запроса на перепрохождение:', error);
+                alert('Ошибка при обработке запроса');
             }
         }
 
