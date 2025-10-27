@@ -854,8 +854,8 @@
         
         <!-- Админ-панель -->
         <div class="admin-panel" id="admin-panel">
-            <!-- Кнопка возврата к пользовательскому режиму -->
-            <div class="card" style="margin-bottom: 20px;">
+            <!-- Кнопка возврата к пользовательскому режиму - СКРЫТА ПРИ АВТОРИЗАЦИИ АДМИНИСТРАТОРА -->
+            <div class="card hidden" style="margin-bottom: 20px;" id="back-to-user-container">
                 <button class="btn btn-secondary btn-block" id="back-to-user-login">← Вернуться к входу пользователей</button>
             </div>
             
@@ -1614,6 +1614,7 @@
         const resultsSummaryElement = document.getElementById('results-summary');
         const resultsDetailsElement = document.getElementById('results-details');
         const backToUserLoginBtn = document.getElementById('back-to-user-login');
+        const backToUserContainer = document.getElementById('back-to-user-container');
 
         // Инициализация приложения
         document.addEventListener('DOMContentLoaded', function() {
@@ -1642,6 +1643,8 @@
                 adminLogin.classList.remove('hidden');
                 adminContent.classList.add('hidden');
                 adminToggle.style.display = 'none';
+                // Показываем кнопку возврата при входе в админ-панель
+                backToUserContainer.classList.remove('hidden');
             });
 
             backToUserLoginBtn.addEventListener('click', function() {
@@ -1671,6 +1674,8 @@
                 document.getElementById('admin-password').value = '';
                 document.getElementById('admin-login-error').classList.add('hidden');
                 adminToggle.style.display = 'block';
+                // Показываем кнопку возврата при выходе из админ-аккаунта
+                backToUserContainer.classList.remove('hidden');
             });
 
             loginBtn.addEventListener('click', function() {
@@ -1751,6 +1756,8 @@
                     adminLogin.classList.add('hidden');
                     adminContent.classList.remove('hidden');
                     document.getElementById('admin-login-error').classList.add('hidden');
+                    // СКРЫВАЕМ кнопку "Вернуться к входу пользователей" при успешной авторизации администратора
+                    backToUserContainer.classList.add('hidden');
                 } else {
                     document.getElementById('admin-login-error').classList.remove('hidden');
                 }
