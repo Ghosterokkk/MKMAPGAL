@@ -247,6 +247,13 @@
             border-color: #555;
         }
         
+        button:disabled {
+            background: #222;
+            color: #666;
+            border-color: #333;
+            cursor: not-allowed;
+        }
+        
         .section {
             margin-bottom: 2rem;
         }
@@ -305,6 +312,12 @@
             border: 1px solid #444;
             border-radius: 4px;
             color: #ccc;
+        }
+        
+        input:disabled, textarea:disabled, select:disabled {
+            background: rgba(30, 30, 30, 0.8);
+            color: #666;
+            cursor: not-allowed;
         }
         
         .modal {
@@ -517,6 +530,13 @@
             color: white;
         }
         
+        .quick-action-btn:disabled {
+            background: #222;
+            color: #666;
+            border-color: #333;
+            cursor: not-allowed;
+        }
+        
         .auth-container {
             position: fixed;
             top: 0;
@@ -627,18 +647,19 @@
             text-align: center;
         }
 
-        .path-controls {
-            margin-top: 1rem;
-            padding: 1rem;
-            background: rgba(40, 40, 40, 0.7);
-            border-radius: 6px;
-            border: 1px solid #333;
+        .guest-disabled {
+            opacity: 0.6;
+            pointer-events: none;
         }
-        
-        .hint {
-            font-size: 0.8rem;
-            color: #888;
-            margin-top: 0.5rem;
+
+        .guest-disabled-message {
+            background: rgba(200, 100, 0, 0.2);
+            border: 1px solid #ff8800;
+            border-radius: 4px;
+            padding: 0.8rem;
+            margin-top: 1rem;
+            color: #ffaa00;
+            font-size: 0.9rem;
             text-align: center;
         }
 
@@ -809,6 +830,10 @@
                                 <div class="ship-progress" id="ship-progress" style="display: none;">
                                     <div class="ship-progress-bar" id="ship-progress-bar"></div>
                                 </div>
+
+                                <div class="guest-disabled-message" id="guest-ship-message" style="display: none;">
+                                    Только администратор может управлять кораблями
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -821,11 +846,15 @@
                                 <button id="delete-planet-btn" style="flex: 1; background: #a00;">Удалить</button>
                             </div>
                             
+                            <div class="guest-disabled-message" id="guest-planet-message" style="display: none;">
+                                Только администратор может управлять планетами
+                            </div>
+                            
                             <div class="planet-info" style="margin-top: 1rem;">
                                 <div class="section-title" style="font-size: 1rem;">ВЫБРАННАЯ ПЛАНЕТА</div>
                                 <div id="management-planet-name">Не выбрана</div>
                                 <div class="planet-coords" id="management-planet-coords"></div>
-                                <div class="hint">Зажмите ALT + ЛКМ для перемещения планеты</div>
+                                <div class="hint admin-only">Зажмите ALT + ЛКМ для перемещения планеты</div>
                             </div>
                         </div>
                     </div>
@@ -836,6 +865,10 @@
                                 <button id="add-ship-btn" style="flex: 1;">Добавить корабль</button>
                                 <button id="send-ship-management-btn" style="flex: 1;">Отправить</button>
                                 <button id="delete-ship-btn" style="flex: 1; background: #a00;">Удалить</button>
+                            </div>
+                            
+                            <div class="guest-disabled-message" id="guest-ship-management-message" style="display: none;">
+                                Только администратор может управлять кораблями
                             </div>
                             
                             <div class="planet-info" style="margin-top: 1rem;">
@@ -1201,13 +1234,30 @@
         function updateUIForUserRole() {
             const adminElements = document.querySelectorAll('.admin-only');
             const viewOnlyNote = document.getElementById('view-only-note');
+            const guestMessages = document.querySelectorAll('.guest-disabled-message');
+            const quickActionBtns = document.querySelectorAll('.quick-action-btn');
             
             if (appState.userRole === 'admin') {
+                // Администратор - полный доступ
                 adminElements.forEach(el => el.style.display = 'block');
                 viewOnlyNote.style.display = 'none';
+                guestMessages.forEach(msg => msg.style.display = 'none');
+                quickActionBtns.forEach(btn => btn.disabled = false);
+                
+                // Включить вкладку "Создать" для администратора
+                document.querySelector('[data-tab="creation"]').style.display = 'flex';
             } else {
+                // Гость - только просмотр
                 adminElements.forEach(el => el.style.display = 'none');
                 viewOnlyNote.style.display = 'block';
+                guestMessages.forEach(msg => msg.style.display = 'block');
+                
+                // Отключить вкладку "Создать" для гостя
+                document.querySelector('[data-tab="creation"]').style.display = 'none';
+                
+                // Отключить кнопки управления для гостя
+                const managementBtns = document.querySelectorAll('#add-planet-btn, #edit-planet-btn, #delete-planet-btn, #add-ship-btn, #send-ship-management-btn, #delete-ship-btn');
+                managementBtns.forEach(btn => btn.disabled = true);
             }
         }
 
@@ -1352,9 +1402,12 @@
                     label.textContent = planet.name;
                     planetElement.appendChild(label);
                     
-                    planetElement.addEventListener('mousedown', function(e) {
-                        handlePlanetMouseDown(e, planet.id);
-                    });
+                    // Для гостей отключаем функциональность перемещения
+                    if (appState.userRole === 'admin') {
+                        planetElement.addEventListener('mousedown', function(e) {
+                            handlePlanetMouseDown(e, planet.id);
+                        });
+                    }
                     
                     planetElement.addEventListener('click', function(e) {
                         e.stopPropagation();
@@ -1473,7 +1526,10 @@
         function handlePlanetMouseDown(e, planetId) {
             e.stopPropagation();
             
-            if (appState.userRole !== 'admin') return;
+            if (appState.userRole !== 'admin') {
+                showNotification('Только администратор может перемещать планеты');
+                return;
+            }
             
             if (appState.altPressed) {
                 appState.isPlanetMoving = true;
@@ -1508,7 +1564,9 @@
             document.addEventListener('keydown', function(e) {
                 if (e.key === 'Alt') {
                     appState.altPressed = true;
-                    mapContainer.style.cursor = 'grab';
+                    if (appState.userRole === 'admin') {
+                        mapContainer.style.cursor = 'grab';
+                    }
                 }
             });
             
@@ -1542,7 +1600,7 @@
                     updateMapTransform();
                 }
                 
-                if (appState.isPlanetMoving && appState.movingPlanet) {
+                if (appState.isPlanetMoving && appState.movingPlanet && appState.userRole === 'admin') {
                     const rect = mapContainer.getBoundingClientRect();
                     const x = (e.clientX - rect.left - appState.mapOffset.x) / appState.mapScale;
                     const y = (e.clientY - rect.top - appState.mapOffset.y) / appState.mapScale;
@@ -1574,7 +1632,7 @@
                     appState.isPlanetMoving = false;
                     if (appState.movingPlanet) {
                         const planet = appState.planets.find(p => p.id === appState.movingPlanet);
-                        if (planet) {
+                        if (planet && appState.userRole === 'admin') {
                             savePlanetToFirestore(planet);
                             appState.ships.filter(ship => ship.location === planet.id && !ship.travel?.inProgress)
                                 .forEach(ship => {
@@ -1591,7 +1649,9 @@
                         appState.movingPlanet = null;
                     }
                     mapContainer.style.cursor = appState.altPressed ? 'grab' : 'grab';
-                    showNotification('Планета перемещена', 'success');
+                    if (appState.userRole === 'admin') {
+                        showNotification('Планета перемещена', 'success');
+                    }
                 }
             });
             
@@ -1769,16 +1829,25 @@
             const travelTimeControls = document.getElementById('travel-time-controls');
             const travelInfo = document.getElementById('travel-time-info');
             const shipProgress = document.getElementById('ship-progress');
+            const guestShipMessage = document.getElementById('guest-ship-message');
             
             if (ship.travel?.inProgress) {
                 destinationControls.style.display = 'none';
                 travelTimeControls.style.display = 'none';
                 travelInfo.style.display = 'block';
                 shipProgress.style.display = 'block';
+                guestShipMessage.style.display = 'none';
                 updateTravelProgress(ship);
             } else {
-                destinationControls.style.display = 'block';
-                travelTimeControls.style.display = 'block';
+                if (appState.userRole === 'admin') {
+                    destinationControls.style.display = 'block';
+                    travelTimeControls.style.display = 'block';
+                    guestShipMessage.style.display = 'none';
+                } else {
+                    destinationControls.style.display = 'none';
+                    travelTimeControls.style.display = 'none';
+                    guestShipMessage.style.display = 'block';
+                }
                 travelInfo.style.display = 'none';
                 shipProgress.style.display = 'none';
                 updateDestinationSelect(ship);
@@ -1807,6 +1876,11 @@
 
         // Функции модальных окон
         function openPlanetModal() {
+            if (appState.userRole !== 'admin') {
+                showNotification('Только администратор может управлять планетами');
+                return;
+            }
+            
             const modal = document.getElementById('planet-modal');
             const title = document.getElementById('planet-modal-title');
             const deleteBtn = document.getElementById('delete-planet-modal');
@@ -1836,6 +1910,11 @@
         }
 
         function openShipModal() {
+            if (appState.userRole !== 'admin') {
+                showNotification('Только администратор может управлять кораблями');
+                return;
+            }
+            
             const modal = document.getElementById('ship-modal');
             const locationSelect = document.getElementById('ship-location');
             const title = document.getElementById('ship-modal-title');
@@ -1908,6 +1987,11 @@
         }
 
         function savePlanet() {
+            if (appState.userRole !== 'admin') {
+                showNotification('Только администратор может сохранять планеты');
+                return;
+            }
+            
             const name = document.getElementById('planet-name').value;
             const description = document.getElementById('planet-desc').value;
             const color = document.getElementById('planet-color').value;
@@ -1960,6 +2044,11 @@
         }
 
         function saveShip() {
+            if (appState.userRole !== 'admin') {
+                showNotification('Только администратор может сохранять корабли');
+                return;
+            }
+            
             const name = document.getElementById('ship-name').value;
             const owner = document.getElementById('ship-owner').value;
             const description = document.getElementById('ship-description').value;
@@ -2042,6 +2131,11 @@
 
         // Функции удаления объектов
         function deleteSelectedPlanet() {
+            if (appState.userRole !== 'admin') {
+                showNotification('Только администратор может удалять планеты');
+                return;
+            }
+            
             if (!appState.selectedPlanet) {
                 showNotification('Выберите планету для удаления');
                 return;
@@ -2084,6 +2178,11 @@
         }
 
         function deleteSelectedShip() {
+            if (appState.userRole !== 'admin') {
+                showNotification('Только администратор может удалять корабли');
+                return;
+            }
+            
             if (!appState.selectedShip) {
                 showNotification('Выберите корабль для удаления');
                 return;
@@ -2141,6 +2240,11 @@
         }
 
         function sendSelectedShip() {
+            if (appState.userRole !== 'admin') {
+                showNotification('Только администратор может отправлять корабли');
+                return;
+            }
+            
             if (!appState.selectedShip) {
                 showNotification('Выберите корабль');
                 return;
