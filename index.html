@@ -3,11 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title></title>
+    <title>Универсальная картография</title>
     <!-- Подключение Firebase -->
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-storage-compat.js"></script>
     <style>
         * {
             margin: 0;
@@ -120,6 +121,25 @@
             text-shadow: 0 0 5px black;
             box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
             z-index: 5;
+            overflow: hidden;
+        }
+        
+        .planet-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+        
+        .planet-default {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 0.8rem;
+            text-align: center;
+            padding: 5px;
         }
         
         .planet:hover {
@@ -143,6 +163,9 @@
             font-size: 0.9rem;
             color: #aaa;
             white-space: nowrap;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 2px 8px;
+            border-radius: 10px;
         }
         
         .ship {
@@ -280,6 +303,15 @@
             margin-bottom: 0.5rem;
         }
         
+        .planet-image-large {
+            width: 100%;
+            max-height: 200px;
+            object-fit: cover;
+            border-radius: 6px;
+            margin: 10px 0;
+            display: none;
+        }
+        
         .fleet-list {
             margin-top: 1rem;
         }
@@ -320,6 +352,57 @@
             cursor: not-allowed;
         }
         
+        .file-upload {
+            background: rgba(40, 40, 40, 0.8);
+            border: 1px solid #444;
+            border-radius: 4px;
+            padding: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .file-upload-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #888;
+        }
+        
+        .file-input {
+            width: 100%;
+            padding: 0.5rem;
+            background: rgba(50, 50, 50, 0.8);
+            border: 1px dashed #666;
+            border-radius: 4px;
+            color: #ccc;
+            cursor: pointer;
+        }
+        
+        .upload-preview {
+            width: 100%;
+            max-height: 150px;
+            object-fit: contain;
+            margin-top: 10px;
+            border-radius: 4px;
+            display: none;
+        }
+        
+        .upload-progress {
+            width: 100%;
+            height: 6px;
+            background: rgba(50, 50, 50, 0.5);
+            border-radius: 3px;
+            margin-top: 0.5rem;
+            overflow: hidden;
+            border: 1px solid #333;
+            display: none;
+        }
+        
+        .upload-progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #4a86e8, #6cb4ee);
+            width: 0%;
+            transition: width 0.3s;
+        }
+        
         .modal {
             display: none;
             position: fixed;
@@ -341,6 +424,8 @@
             max-width: 90%;
             box-shadow: 0 0 30px rgba(74, 134, 232, 0.2);
             border: 1px solid #333;
+            max-height: 90vh;
+            overflow-y: auto;
         }
         
         .modal-title {
@@ -663,7 +748,6 @@
             text-align: center;
         }
 
-        /* Новые стили для кораблей */
         .ship-image-preview {
             width: 100%;
             max-height: 200px;
@@ -721,7 +805,7 @@
     <!-- Контейнер аутентификации -->
     <div class="auth-container" id="auth-container">
         <div class="auth-form">
-            <div class="auth-title">Доставки МК.RU</div>
+            <div class="auth-title">УНИВЕРСАЛЬНАЯ КАРТОГРАФИЯ</div>
             <div id="login-form">
                 <input type="text" class="auth-input" id="login-username" placeholder="Логин администратора">
                 <input type="password" class="auth-input" id="login-password" placeholder="Пароль">
@@ -736,7 +820,7 @@
     <div class="container" id="main-container" style="display: none;">
         <header>
             <div class="header-content">
-                <div class="logo">Доставки МК.RU</div>
+                <div class="logo">УНИВЕРСАЛЬНАЯ КАРТОГРАФИЯ</div>
                 <div class="user-info">
                     <div class="user-avatar" id="user-avatar">G</div>
                     <div>
@@ -780,6 +864,7 @@
                             <div class="planet-info">
                                 <div class="planet-name" id="selected-planet-name">Выберите планету</div>
                                 <div id="selected-planet-desc">Нажмите на планету на карте для просмотра информации</div>
+                                <img class="planet-image-large" id="selected-planet-image" alt="Изображение планеты">
                                 <div class="planet-coords" id="planet-coords"></div>
                             </div>
                             
@@ -927,8 +1012,18 @@
                 <label for="planet-desc">Описание планеты</label>
                 <textarea id="planet-desc" rows="4" placeholder="Введите описание"></textarea>
             </div>
+            
+            <div class="file-upload">
+                <label class="file-upload-label">Изображение планеты</label>
+                <input type="file" id="planet-image-upload" class="file-input" accept="image/*">
+                <img id="planet-image-preview" class="upload-preview" alt="Предпросмотр изображения">
+                <div class="upload-progress" id="planet-upload-progress">
+                    <div class="upload-progress-bar" id="planet-upload-progress-bar"></div>
+                </div>
+            </div>
+            
             <div class="form-group">
-                <label for="planet-color">Цвет планеты</label>
+                <label for="planet-color">Цвет планеты (если нет изображения)</label>
                 <input type="color" id="planet-color" value="#4a86e8">
             </div>
             <div class="form-group">
@@ -1017,6 +1112,7 @@
         firebase.initializeApp(firebaseConfig);
         const auth = firebase.auth();
         const db = firebase.firestore();
+        const storage = firebase.storage();
 
         // Данные приложения
         const appState = {
@@ -1042,7 +1138,7 @@
             altPressed: false
         };
 
-        // Конфигурация типов кораблей с обновленными максимальными значениями
+        // Конфигурация типов кораблей
         const shipTypes = {
             'shuttle': { name: 'Шаттл', baseBonus: 5, baseHealth: 50, baseSuccess: 70, speed: 'Очень высокая', maxHealth: 50, maxBonus: 5 },
             'corvette': { name: 'Корвет', baseBonus: 10, baseHealth: 100, baseSuccess: 60, speed: 'Высокая', maxHealth: 100, maxBonus: 10 },
@@ -1075,23 +1171,30 @@
                 });
             });
             
-            // Обработчики для кнопок
+            // Обработчики для кнопок управления планетами
             document.getElementById('add-planet-btn').addEventListener('click', openPlanetModal);
             document.getElementById('edit-planet-btn').addEventListener('click', openPlanetModal);
             document.getElementById('add-planet-btn-creation').addEventListener('click', openPlanetModal);
+            document.getElementById('delete-planet-btn').addEventListener('click', deleteSelectedPlanet);
+            
+            // Обработчики для кнопок управления кораблями
             document.getElementById('add-ship-btn').addEventListener('click', openShipModal);
             document.getElementById('add-ship-btn-creation').addEventListener('click', openShipModal);
-            document.getElementById('save-planet').addEventListener('click', savePlanet);
-            document.getElementById('save-ship').addEventListener('click', saveShip);
-            document.getElementById('send-ship-btn').addEventListener('click', sendSelectedShip);
-            document.getElementById('delete-planet-btn').addEventListener('click', deleteSelectedPlanet);
             document.getElementById('delete-ship-btn').addEventListener('click', deleteSelectedShip);
-            document.getElementById('delete-planet-modal').addEventListener('click', deleteSelectedPlanet);
             document.getElementById('send-ship-management-btn').addEventListener('click', function() {
                 if (appState.selectedShip) {
                     document.getElementById('send-ship-btn').click();
                 }
             });
+            
+            // Обработчики для модальных окон
+            document.getElementById('save-planet').addEventListener('click', savePlanet);
+            document.getElementById('save-ship').addEventListener('click', saveShip);
+            document.getElementById('delete-planet-modal').addEventListener('click', deleteSelectedPlanet);
+            document.getElementById('delete-ship-modal').addEventListener('click', deleteSelectedShip);
+            
+            // Обработчики для отправки кораблей
+            document.getElementById('send-ship-btn').addEventListener('click', sendSelectedShip);
             
             // Обработчики для времени пути
             document.getElementById('travel-minutes').addEventListener('input', updateTravelTimeDisplay);
@@ -1116,6 +1219,22 @@
                     preview.style.display = 'block';
                 } else {
                     preview.style.display = 'none';
+                }
+            });
+            
+            // Обработчик для загрузки изображения планеты
+            document.getElementById('planet-image-upload').addEventListener('change', function(e) {
+                const file = e.target.files[0];
+                if (file) {
+                    const preview = document.getElementById('planet-image-preview');
+                    const reader = new FileReader();
+                    
+                    reader.onload = function(e) {
+                        preview.src = e.target.result;
+                        preview.style.display = 'block';
+                    };
+                    
+                    reader.readAsDataURL(file);
                 }
             });
             
@@ -1309,6 +1428,39 @@
                 });
         }
 
+        // Функция загрузки изображения в Firebase Storage
+        function uploadPlanetImage(file, planetId) {
+            return new Promise((resolve, reject) => {
+                const storageRef = storage.ref();
+                const planetImageRef = storageRef.child(`planet-images/${planetId}/${file.name}`);
+                const uploadTask = planetImageRef.put(file);
+                
+                const progressBar = document.getElementById('planet-upload-progress-bar');
+                const progressContainer = document.getElementById('planet-upload-progress');
+                
+                progressContainer.style.display = 'block';
+                
+                uploadTask.on('state_changed',
+                    (snapshot) => {
+                        // Прогресс загрузки
+                        const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                        progressBar.style.width = progress + '%';
+                    },
+                    (error) => {
+                        progressContainer.style.display = 'none';
+                        reject(error);
+                    },
+                    () => {
+                        // Загрузка завершена
+                        uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
+                            progressContainer.style.display = 'none';
+                            resolve(downloadURL);
+                        });
+                    }
+                );
+            });
+        }
+
         function savePlanetToFirestore(planet) {
             const planetData = {
                 name: planet.name,
@@ -1319,6 +1471,11 @@
                 y: planet.y,
                 updatedAt: firebase.firestore.FieldValue.serverTimestamp()
             };
+            
+            // Добавляем URL изображения если есть
+            if (planet.imageUrl) {
+                planetData.imageUrl = planet.imageUrl;
+            }
             
             if (planet.id) {
                 return db.collection('planets').doc(planet.id).update(planetData);
@@ -1427,10 +1584,29 @@
                 planetElement.style.height = `${planet.size}px`;
                 planetElement.style.left = `${planet.x}px`;
                 planetElement.style.top = `${planet.y}px`;
-                planetElement.style.backgroundColor = planet.color;
                 
-                const label = planetElement.querySelector('.planet-label');
+                // Очищаем содержимое планеты
+                planetElement.innerHTML = '';
+                
+                // Добавляем изображение или цветной фон
+                if (planet.imageUrl) {
+                    const planetImage = document.createElement('img');
+                    planetImage.className = 'planet-image';
+                    planetImage.src = planet.imageUrl;
+                    planetImage.alt = planet.name;
+                    planetElement.appendChild(planetImage);
+                } else {
+                    const planetDefault = document.createElement('div');
+                    planetDefault.className = 'planet-default';
+                    planetDefault.textContent = planet.name.length > 10 ? planet.name.substring(0, 8) + '...' : planet.name;
+                    planetDefault.style.backgroundColor = planet.color;
+                    planetElement.appendChild(planetDefault);
+                }
+                
+                const label = document.createElement('div');
+                label.className = 'planet-label';
                 label.textContent = planet.name;
+                planetElement.appendChild(label);
                 
                 if (appState.selectedPlanet === planet.id) {
                     planetElement.classList.add('selected');
@@ -1739,6 +1915,14 @@
             document.getElementById('selected-planet-desc').textContent = planet.description;
             document.getElementById('planet-coords').textContent = `Координаты: X: ${Math.round(planet.x)}, Y: ${Math.round(planet.y)}`;
             
+            const planetImage = document.getElementById('selected-planet-image');
+            if (planet.imageUrl) {
+                planetImage.src = planet.imageUrl;
+                planetImage.style.display = 'block';
+            } else {
+                planetImage.style.display = 'none';
+            }
+            
             const fleetList = document.getElementById('planet-fleet-list');
             fleetList.innerHTML = '';
             
@@ -1894,6 +2078,9 @@
             document.getElementById('planet-desc').value = '';
             document.getElementById('planet-color').value = '#4a86e8';
             document.getElementById('planet-size').value = '50';
+            document.getElementById('planet-image-upload').value = '';
+            document.getElementById('planet-image-preview').style.display = 'none';
+            document.getElementById('planet-upload-progress').style.display = 'none';
             
             if (appState.selectedPlanet) {
                 title.textContent = 'Редактировать планету';
@@ -1905,6 +2092,11 @@
                     document.getElementById('planet-desc').value = planet.description;
                     document.getElementById('planet-color').value = planet.color;
                     document.getElementById('planet-size').value = planet.size;
+                    
+                    if (planet.imageUrl) {
+                        document.getElementById('planet-image-preview').src = planet.imageUrl;
+                        document.getElementById('planet-image-preview').style.display = 'block';
+                    }
                 }
             } else {
                 title.textContent = 'Добавить планету';
@@ -2003,6 +2195,7 @@
             const description = document.getElementById('planet-desc').value;
             const color = document.getElementById('planet-color').value;
             const size = parseInt(document.getElementById('planet-size').value);
+            const imageFile = document.getElementById('planet-image-upload').files[0];
             
             if (!name) {
                 showNotification('Введите название планеты');
@@ -2030,24 +2223,47 @@
                 };
             }
             
-            savePlanetToFirestore(planet)
-                .then(() => {
-                    if (!appState.selectedPlanet) {
-                        appState.planets.push(planet);
-                    }
-                    
-                    renderMap();
-                    document.getElementById('planet-modal').style.display = 'none';
-                    showNotification(`Планета "${name}" сохранена`, 'success');
-                    
-                    if (!appState.selectedPlanet) {
-                        selectPlanet(planet.id);
-                    }
-                })
-                .catch((error) => {
-                    console.error('Ошибка сохранения планеты:', error);
-                    showNotification('Ошибка сохранения планеты');
-                });
+            // Функция для сохранения планеты после загрузки изображения
+            const savePlanetAfterImageUpload = (imageUrl) => {
+                if (imageUrl) {
+                    planet.imageUrl = imageUrl;
+                }
+                
+                savePlanetToFirestore(planet)
+                    .then(() => {
+                        if (!appState.selectedPlanet) {
+                            appState.planets.push(planet);
+                        }
+                        
+                        renderMap();
+                        document.getElementById('planet-modal').style.display = 'none';
+                        showNotification(`Планета "${name}" сохранена`, 'success');
+                        
+                        if (!appState.selectedPlanet) {
+                            selectPlanet(planet.id);
+                        }
+                    })
+                    .catch((error) => {
+                        console.error('Ошибка сохранения планеты:', error);
+                        showNotification('Ошибка сохранения планеты');
+                    });
+            };
+            
+            // Если есть файл для загрузки
+            if (imageFile) {
+                showNotification('Загрузка изображения...');
+                uploadPlanetImage(imageFile, planet.id || 'temp')
+                    .then((downloadURL) => {
+                        savePlanetAfterImageUpload(downloadURL);
+                    })
+                    .catch((error) => {
+                        console.error('Ошибка загрузки изображения:', error);
+                        showNotification('Ошибка загрузки изображения');
+                    });
+            } else {
+                // Если файла нет, сохраняем планету без изображения
+                savePlanetAfterImageUpload(null);
+            }
         }
 
         function saveShip() {
