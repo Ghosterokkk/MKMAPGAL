@@ -1042,15 +1042,15 @@
             altPressed: false
         };
 
-        // Конфигурация типов кораблей
+        // Конфигурация типов кораблей с обновленными максимальными значениями
         const shipTypes = {
-            'shuttle': { name: 'Шаттл', baseBonus: 5, baseHealth: 50, baseSuccess: 70, speed: 'Очень высокая' },
-            'corvette': { name: 'Корвет', baseBonus: 10, baseHealth: 100, baseSuccess: 60, speed: 'Высокая' },
-            'frigate': { name: 'Фрегат', baseBonus: 15, baseHealth: 200, baseSuccess: 55, speed: 'Высокая' },
-            'light-cruiser': { name: 'Лёгкий крейсер', baseBonus: 20, baseHealth: 300, baseSuccess: 50, speed: 'Средняя' },
-            'cruiser': { name: 'Крейсер', baseBonus: 25, baseHealth: 400, baseSuccess: 45, speed: 'Средняя' },
-            'assault': { name: 'Ударный корабль', baseBonus: 30, baseHealth: 500, baseSuccess: 40, speed: 'Низкая' },
-            'destroyer': { name: 'Звёздный разрушитель', baseBonus: 40, baseHealth: 800, baseSuccess: 35, speed: 'Очень низкая' }
+            'shuttle': { name: 'Шаттл', baseBonus: 5, baseHealth: 50, baseSuccess: 70, speed: 'Очень высокая', maxHealth: 50, maxBonus: 5 },
+            'corvette': { name: 'Корвет', baseBonus: 10, baseHealth: 100, baseSuccess: 60, speed: 'Высокая', maxHealth: 100, maxBonus: 10 },
+            'frigate': { name: 'Фрегат', baseBonus: 15, baseHealth: 200, baseSuccess: 55, speed: 'Высокая', maxHealth: 200, maxBonus: 15 },
+            'light-cruiser': { name: 'Лёгкий крейсер', baseBonus: 20, baseHealth: 300, baseSuccess: 50, speed: 'Средняя', maxHealth: 300, maxBonus: 20 },
+            'cruiser': { name: 'Крейсер', baseBonus: 25, baseHealth: 400, baseSuccess: 45, speed: 'Средняя', maxHealth: 400, maxBonus: 25 },
+            'assault': { name: 'Ударный корабль', baseBonus: 30, baseHealth: 500, baseSuccess: 40, speed: 'Низкая', maxHealth: 500, maxBonus: 30 },
+            'destroyer': { name: 'Звёздный разрушитель', baseBonus: 40, baseHealth: 800, baseSuccess: 35, speed: 'Очень низкая', maxHealth: 800, maxBonus: 40 }
         };
 
         // Инициализация приложения
@@ -1792,11 +1792,11 @@
                     </div>
                     <div class="ship-stat">
                         <div class="ship-stat-label">Здоровье</div>
-                        <div class="ship-stat-value health-value">${ship.health || 100}/100 HP</div>
+                        <div class="ship-stat-value health-value">${ship.health || 100}/${shipType.maxHealth} HP</div>
                     </div>
                     <div class="ship-stat">
                         <div class="ship-stat-label">Бонус успеха</div>
-                        <div class="ship-stat-value bonus-value">+${ship.successBonus || 0}%</div>
+                        <div class="ship-stat-value bonus-value">+${ship.successBonus || 0}% (макс. +${shipType.maxBonus}%)</div>
                     </div>
                     <div class="ship-stat" style="grid-column: span 2;">
                         <div class="ship-stat-label">Шанс успеха миссии</div>
@@ -1822,7 +1822,7 @@
             document.getElementById('management-ship-name').textContent = ship.name;
             document.getElementById('management-ship-info').innerHTML = `
                 ${shipType.name} | Расположение: ${getPlanetName(ship.location)}<br>
-                Владелец: ${ship.owner || 'Не указан'} | Здоровье: ${ship.health || 100} HP
+                Владелец: ${ship.owner || 'Не указан'} | Здоровье: ${ship.health || 100}/${shipType.maxHealth} HP
             `;
             
             const destinationControls = document.getElementById('destination-controls');
@@ -1927,9 +1927,9 @@
             document.getElementById('ship-image').value = '';
             document.getElementById('ship-image-preview').style.display = 'none';
             document.getElementById('ship-type').value = 'shuttle';
-            document.getElementById('ship-health').value = '100';
-            document.getElementById('ship-success-bonus').value = '0';
-            document.getElementById('ship-success-chance').value = '60';
+            document.getElementById('ship-health').value = '50';
+            document.getElementById('ship-success-bonus').value = '5';
+            document.getElementById('ship-success-chance').value = '70';
             
             locationSelect.innerHTML = '';
             appState.planets.forEach(planet => {
@@ -1954,9 +1954,9 @@
                     document.getElementById('ship-description').value = ship.description || '';
                     document.getElementById('ship-image').value = ship.imageUrl || '';
                     document.getElementById('ship-type').value = ship.type || 'shuttle';
-                    document.getElementById('ship-health').value = ship.health || 100;
-                    document.getElementById('ship-success-bonus').value = ship.successBonus || 0;
-                    document.getElementById('ship-success-chance').value = ship.successChance || 60;
+                    document.getElementById('ship-health').value = ship.health || 50;
+                    document.getElementById('ship-success-bonus').value = ship.successBonus || 5;
+                    document.getElementById('ship-success-chance').value = ship.successChance || 70;
                     
                     if (ship.imageUrl) {
                         document.getElementById('ship-image-preview').src = ship.imageUrl;
@@ -1981,7 +1981,9 @@
             
             if (shipType) {
                 document.getElementById('ship-health').value = shipType.baseHealth;
+                document.getElementById('ship-health').max = shipType.maxHealth;
                 document.getElementById('ship-success-bonus').value = shipType.baseBonus;
+                document.getElementById('ship-success-bonus').max = shipType.maxBonus;
                 document.getElementById('ship-success-chance').value = shipType.baseSuccess;
             }
         }
@@ -2055,9 +2057,9 @@
             const imageUrl = document.getElementById('ship-image').value;
             const type = document.getElementById('ship-type').value;
             const location = document.getElementById('ship-location').value;
-            const health = parseInt(document.getElementById('ship-health').value) || 100;
-            const successBonus = parseInt(document.getElementById('ship-success-bonus').value) || 0;
-            const successChance = parseInt(document.getElementById('ship-success-chance').value) || 60;
+            const health = parseInt(document.getElementById('ship-health').value) || 50;
+            const successBonus = parseInt(document.getElementById('ship-success-bonus').value) || 5;
+            const successChance = parseInt(document.getElementById('ship-success-chance').value) || 70;
             
             if (!name) {
                 showNotification('Введите название корабля');
@@ -2072,6 +2074,18 @@
             const locationPlanet = appState.planets.find(p => p.id === location);
             if (!locationPlanet) {
                 showNotification('Выбранная планета не найдена');
+                return;
+            }
+            
+            // Проверка максимальных значений
+            const shipType = shipTypes[type];
+            if (health > shipType.maxHealth) {
+                showNotification(`Максимальное здоровье для ${shipType.name}: ${shipType.maxHealth}`);
+                return;
+            }
+            
+            if (successBonus > shipType.maxBonus) {
+                showNotification(`Максимальный бонус успеха для ${shipType.name}: +${shipType.maxBonus}%`);
                 return;
             }
             
