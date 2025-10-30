@@ -1162,15 +1162,20 @@
             // Проверяем учетные данные в Firestore
             db.collection('admins').doc(username).get()
                 .then((doc) => {
-                    if (doc.exists && doc.data().password === password) {
-                        appState.userRole = 'admin';
-                        updateUIForUserRole();
-                        showNotification(`Добро пожаловать, администратор ${username}!`, 'success');
-                        
-                        loadDataFromFirestore();
-                        document.getElementById('auth-container').style.display = 'none';
-                        document.getElementById('main-container').style.display = 'flex';
-                        updateUserInfo(username);
+                    if (doc.exists) {
+                        // Проверяем пароль
+                        if (doc.data().password === password) {
+                            appState.userRole = 'admin';
+                            updateUIForUserRole();
+                            showNotification(`Добро пожаловать, администратор ${username}!`, 'success');
+                            
+                            loadDataFromFirestore();
+                            document.getElementById('auth-container').style.display = 'none';
+                            document.getElementById('main-container').style.display = 'flex';
+                            updateUserInfo(username);
+                        } else {
+                            showNotification('Неверный логин или пароль администратора');
+                        }
                     } else {
                         showNotification('Неверный логин или пароль администратора');
                     }
